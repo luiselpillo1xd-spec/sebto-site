@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Photo from "@/components/Photo";
+import { asset } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Galería",
   description: "Fotos reales de trabajos anteriores: fiestas con inflables y mudanzas con camioneta.",
 };
 
-const PHOTOS = [
+const PHOTOS_RAW = [
   {
     src: "/img/trabajos/inflable-mario-ninos-800.webp",
     full: "/img/trabajos/inflable-mario-ninos.webp",
@@ -44,6 +45,9 @@ const PHOTOS = [
     alt: "Camioneta del Programa Abasto Tlalpan estacionada frente a una bodega de carga",
   },
 ];
+
+/* basePath is not applied to plain string paths — prefix every photo. */
+const PHOTOS = PHOTOS_RAW.map((p) => ({ ...p, src: asset(p.src), full: asset(p.full) }));
 
 export default function GaleriaPage() {
   return (

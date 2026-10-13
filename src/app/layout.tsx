@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import "@/styles/pages.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import { asset } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: {
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_MX",
-    images: ["/img/trabajos/inflable-mario-ninos.webp"],
+    images: [asset("/img/trabajos/inflable-mario-ninos.webp")],
   },
 };
 

@@ -5,8 +5,9 @@ import PriceSlot from "@/components/PriceSlot";
 import ServicePlacard from "@/components/ServicePlacard";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { getServices } from "@/lib/content";
+import { asset } from "@/lib/site-config";
 
-const HOME_GALLERY = [
+const HOME_GALLERY_RAW = [
   {
     src: "/img/trabajos/flete-mudanza-muebles-800.webp",
     caption: "Muebles protegidos y listos para la mudanza",
@@ -29,13 +30,16 @@ const HOME_GALLERY = [
   },
 ];
 
+/* basePath is not applied to plain string paths — prefix every photo. */
+const HOME_GALLERY = HOME_GALLERY_RAW.map((p) => ({ ...p, src: asset(p.src) }));
+
 export default function HomePage() {
   const services = getServices();
   return (
     <>
       <section className="hero">
         <Photo
-          src="/img/trabajos/inflable-mario-ninos.webp"
+          src={asset("/img/trabajos/inflable-mario-ninos.webp")}
           alt="Niños brincando en un castillo inflable durante una fiesta infantil"
           className="hero__photo"
           eager
@@ -103,7 +107,7 @@ export default function HomePage() {
       <section className="section section--tight container" aria-labelledby="abasto-title">
         <div className="abasto">
           <Photo
-            src="/img/trabajos/abasto-camioneta-lateral-800.webp"
+            src={asset("/img/trabajos/abasto-camioneta-lateral-800.webp")}
             alt="Lateral completo de la camioneta del Programa Abasto Tlalpan con su rotulación"
           />
           <div className="abasto__body">

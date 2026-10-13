@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { siteConfig, waLink } from "./site-config";
+import { siteConfig, waLink, asset } from "./site-config";
 
 /* Business facts (phone, name, socials) live in ./site-config.ts — the single
    source of truth. Re-exported here so existing imports keep working. */
-export { siteConfig, waLink };
+export { siteConfig, waLink, asset };
 
 export type ServiceCategory = "inflable" | "flete";
 
@@ -62,8 +62,8 @@ export function getServices(): Service[] {
       duration: data.duration as string | undefined,
       specs: (data.specs as Record<string, string>) ?? {},
       excerpt: data.excerpt as string,
-      thumbnail: data.thumbnail as string | undefined,
-      gallery: (data.gallery as string[]) ?? [],
+      thumbnail: asset(data.thumbnail as string | undefined) || undefined,
+      gallery: ((data.gallery as string[]) ?? []).map(asset),
       featured: data.featured === true,
       waMessage: data.wa_message as string,
       draft: data.draft === true,

@@ -20,3 +20,19 @@ export function waLink(message: string): string | null {
   if (!siteConfig.whatsappNumber) return null;
   return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
+
+/* Deploy path prefix. Empty locally, "/<repo>" on GitHub Pages. */
+export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+/** Prefixes a root-relative public/ path with the deploy base path.
+    Next applies basePath to JS/CSS automatically but NOT to plain string paths
+    in markdown frontmatter or hand-written src="" — without this every image
+    404s on a project-pages deploy while the page itself loads fine.
+    Absolute URLs and already-prefixed paths pass through untouched. */
+export function asset(path: string | undefined): string {
+  if (!path) return "";
+  if (/^(https?:)?\/\//.test(path)) return path;
+  if (!path.startsWith("/")) return path;
+  if (BASE_PATH && path.startsWith(BASE_PATH + "/")) return path;
+  return `${BASE_PATH}${path}`;
+}
