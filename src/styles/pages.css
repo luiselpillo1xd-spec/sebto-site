@@ -1,0 +1,496 @@
+/* Page compositions for La Feria de Pueblo.
+   Imported after globals.css in the root layout. */
+
+/* ============ Header ============ */
+.site-header {
+  border-bottom: var(--border-w) solid var(--ink);
+  background: var(--canvas);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-4);
+  flex-wrap: wrap;
+}
+.wordmark {
+  text-decoration: none;
+}
+.wordmark__plaque {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  border: 2px dashed var(--ink-soft);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.9rem;
+  background: var(--canvas-deep);
+  text-transform: uppercase;
+}
+.site-nav {
+  display: flex;
+  gap: var(--space-5);
+}
+.site-nav__link {
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.site-nav__link:hover {
+  border-bottom-color: var(--rojo);
+}
+
+/* ============ Hero: the entrance to the feria ============ */
+.hero {
+  position: relative;
+  background: var(--ink);
+  overflow: hidden;
+}
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  opacity: 0.9;
+}
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    178deg,
+    rgba(38, 32, 26, 0.2) 0%,
+    rgba(38, 32, 26, 0.45) 40%,
+    rgba(38, 32, 26, 0.88) 100%
+  );
+}
+.hero__bunting {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  min-height: min(78vh, 46rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-4);
+  padding-block: var(--space-8) var(--space-7);
+  color: #fff;
+}
+.hero__kicker {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: var(--amarillo);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--text-hero);
+  line-height: 0.95;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(38, 32, 26, 0.45);
+}
+.hero__sub {
+  font-size: var(--text-md);
+  max-width: 34ch;
+  color: color-mix(in srgb, #fff 92%, var(--amarillo));
+  font-weight: 500;
+}
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+.hero .price-slot {
+  font-size: var(--text-md);
+}
+
+/* ============ Board (atracciones) ============ */
+.board-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+.board-head h2 {
+  font-size: var(--text-xl);
+}
+.board-head__note {
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-5);
+}
+.board > .placard {
+  grid-column: span 2;
+}
+.board > .placard--wide {
+  grid-column: span 6;
+}
+@media (max-width: 60rem) {
+  .board > .placard {
+    grid-column: span 3;
+  }
+}
+@media (max-width: 40rem) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+  .board > .placard,
+  .board > .placard--wide {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Wide placard: the flete booth, photo beside the label */
+.placard--wide {
+  flex-direction: row;
+}
+.placard--wide .placard__photo,
+.placard--wide .placard__fallback {
+  width: 42%;
+  aspect-ratio: auto;
+  border-bottom: none;
+  border-right: var(--border-w) solid var(--ink);
+  object-fit: cover;
+}
+/* wide booth: label content flows top-down, no pinned footer dead zone */
+.placard--wide .placard__footer {
+  margin-top: var(--space-3);
+}
+@media (max-width: 40rem) {
+  .placard--wide {
+    flex-direction: column;
+  }
+  .placard--wide .placard__photo,
+  .placard--wide .placard__fallback {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-right: none;
+    border-bottom: var(--border-w) solid var(--ink);
+  }
+}
+
+.placard__title-link {
+  color: inherit;
+  text-decoration: none;
+}
+.placard__title-link:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--rojo);
+  text-decoration-thickness: 2px;
+}
+.placard__footer {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* ============ Gallery strip (home) & grid (page) ============ */
+.gallery-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+@media (max-width: 48rem) {
+  .gallery-strip {
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: var(--space-2);
+  }
+  .gallery-strip > * {
+    scroll-snap-align: start;
+  }
+}
+.gallery-frame {
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--canvas-deep);
+  box-shadow: var(--shadow-card);
+}
+.gallery-frame img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.gallery-frame figcaption {
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+  padding: var(--space-2) var(--space-3);
+  border-top: var(--border-w) solid var(--ink);
+  background: var(--canvas);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+@media (max-width: 60rem) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 40rem) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============ Otro proyecto (Programa Abasto) ============ */
+.abasto {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: var(--space-6);
+  align-items: center;
+  background: var(--canvas-deep);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.abasto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center; /* never crop the wrap's wording mid-word */
+  min-height: 16rem;
+}
+.abasto__body {
+  padding: var(--space-6) var(--space-6) var(--space-6) 0;
+}
+.abasto__body h2 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-3);
+}
+.abasto__body p + p {
+  margin-top: var(--space-3);
+}
+@media (max-width: 52rem) {
+  .abasto {
+    grid-template-columns: 1fr;
+  }
+  .abasto__body {
+    padding: 0 var(--space-5) var(--space-5);
+  }
+  .abasto img {
+    min-height: 12rem;
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* ============ Contact band ============ */
+.contact-band {
+  background: var(--rojo);
+  color: #fff;
+  border-block: var(--border-w) solid var(--ink);
+}
+.contact-band__inner {
+  padding-block: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+.contact-band h2 {
+  font-size: var(--text-xl);
+  color: #fff;
+}
+.contact-band p {
+  max-width: 48ch;
+  font-size: var(--text-md);
+}
+.contact-band .ticket--pending {
+  /* on red, the pending ticket still reads as THE button: enamel yellow, dashed for pending */
+  background: var(--amarillo);
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.contact-band .ticket--pending .ticket__stub {
+  border-left-color: color-mix(in srgb, var(--ink) 55%, transparent);
+}
+
+/* ============ Contact page ============ */
+.channel-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+  max-width: 34rem;
+}
+.channel-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--canvas);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow-card);
+  font-weight: 600;
+}
+.pending-tag {
+  font-weight: 500;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  border: 1px dashed var(--ink-soft);
+  border-radius: 4px;
+  padding: 0.15rem 0.5rem;
+  white-space: nowrap;
+}
+
+/* ============ Service detail ============ */
+.detail-hero {
+  position: relative;
+  border-bottom: var(--border-w) solid var(--ink);
+  background: var(--canvas-deep);
+}
+.detail-hero img {
+  width: 100%;
+  max-height: 26rem;
+  object-fit: cover;
+}
+.detail-grid {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: var(--space-7);
+  align-items: start;
+}
+@media (max-width: 52rem) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+.detail-panel {
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-card);
+  background: var(--canvas);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: sticky;
+  top: var(--space-5);
+}
+@media (max-width: 52rem) {
+  .detail-panel {
+    position: static;
+  }
+}
+.back-link {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 2px solid var(--amarillo);
+  padding-bottom: 1px;
+}
+.back-link:hover {
+  border-bottom-color: var(--rojo);
+}
+
+/* ============ Footer ============ */
+.site-footer {
+  background: var(--canvas-deep);
+  border-top: var(--border-w) solid var(--ink);
+}
+.site-footer .bunting-band {
+  background: var(--canvas-deep); /* the rope sits on the footer's ground, never a stray white strip */
+}
+.site-footer__inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-6);
+  padding-block: var(--space-7);
+}
+@media (max-width: 52rem) {
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+}
+.site-footer__brand {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  margin-bottom: var(--space-2);
+}
+.site-footer__note {
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+  max-width: 40ch;
+}
+.site-footer__label {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-3);
+}
+.site-footer__pending {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+.site-footer__base {
+  border-top: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  padding-block: var(--space-4);
+  color: var(--ink-soft);
+}
+
+/* ============ Page scaffolding ============ */
+.page-head {
+  padding-block: var(--space-7) var(--space-6);
+}
+/* sections that end in a bordered card sit tighter — no unexplained canyons */
+.section--tight {
+  padding-block: var(--space-6);
+}
+.page-head h1 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-3);
+}
+.page-head p {
+  color: var(--ink-soft);
+  max-width: var(--measure);
+  font-size: var(--text-md);
+}
+.stack-7 {
+  display: grid;
+  gap: var(--space-7);
+}
+.section-title {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-5);
+}
